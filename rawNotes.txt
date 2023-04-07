@@ -1,0 +1,90 @@
+TITENIC 2
+	Jack está atrapado en una pesadilla tras morir.
+	Rose ya c murio xdxdxd (it's been 84 years).
+	Rose pelea como Kenshiro (?).
+	Jack es Titenic all along (se transforma en Titen Sonic).
+	Metroidvania??
+	No hay cajas de diálogo, excepto al lado de un cuadro de 16x16 con 256 colores 
+	Hay una araña somewhere (?)
+	Mr. Scissorsguy is here from Clock Towahh, and maybe even blobby bro.
+	I don't remember the name of the other guy so you don't either.
+	
+TODO	
+	Room9: Ship's engine room, at bottom. First boss!
+	Room10: Filler over engine room (?).
+	Room11 and 12: Ship's deck.
+	Player attacks
+	Enemies: Basic ghoul, jumping spooder (left-right)
+	Powerup interaction
+		- Super Boots: enable double jump and dash -> at Room3
+		- Bomb:	Can drop/throw bombs by holding attack for 1s. -> at bottom of ship (room9? todo)
+	Boss1: At Room9 (?). IDK.
+--VERTICAL SLICE--	
+	
+	
+	
+	
+	><
+	←↑→↓↖↗↘↙↥
+	🅐
+	①②③
+	
+	
+	
+	
+	
+	
+Friendship ended with KOTOKO
+Saeko Chiba / Yuki Kajiura is my best friend now
+
+PROGRAM
+Masaaki Arihara
+Nobuhito Watanabe
+
+CHARACTER DESIGN
+Kazue Yamamoto
+
+CREATURE DESIGN
+Hdenobu Takemoto
+Tatsuo Ichikawa (ZONE Inc)
+
+GRAPHIC
+Katsuhiro Osaka
+Toshika Hanaori
+Masatsuga Takahashi
+Yasutoshi Maeda (Vertex)
+
+MUSIC
+AZUMA (Newton co. Ltd.)
+
+VOICE
+Nobuo Tobita
+Miki Narahashi
+
+IMAGE THEME
+Lyrics by Daisuke Matsuura
+Music by AZUMA
+Song by Mami Hamaguchi
+
+SPECIAL THANKS
+COLONEL-J
+Horiuchi Nanigashi
+
+GAME DESIGN AND DIRECT
+Masaaki Arihara
+
+==========================================
+https://rpgmaker.net/games/12664/ 	COMPLETED		Heavenly Martyr
+https://rpgmaker.net/games/12566/	COMPLETED		Phina
+https://rpgmaker.net/games/12519/	COMPLETED		Warm Prism
+https://rpgmaker.net/games/12521/	COMPLETED		Esper Unleashed
+https://rpgmaker.net/games/12483/	COMPLETED		Above Hell
+https://rpgmaker.net/games/12453/	COMPLETED		Reaper of the Starless Sea
+https://rpgmaker.net/games/12446/	PROCESS			Narrow Ways
+https://rpgmaker.net/games/12443/	COMPLETED		Slay the Lizard of Lunenberg
+https://rpgmaker.net/games/12402/	1/5 EPS			Eternal Remnant
+https://rpgmaker.net/games/12405/	COMMERICAL		5th ERA
+https://rpgmaker.net/games/12532/	PROCESS			Bunny Rush
+https://rpgmaker.net/games/12387/	PROCESS			Secret of Varonis
+https://rpgmaker.net/games/12374/	COMPLETED		Vagabond
+https://rpgmaker.net/games/12568/	COMPLETED		A Stolen Love and the Forgotten Promise
