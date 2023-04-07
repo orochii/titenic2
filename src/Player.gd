@@ -152,3 +152,16 @@ func maxJumps():
 func hasBoots():
 	var f = State.getFlag(StateClass.FlagNames.UPGRADES)
 	return f & 1 == 1
+
+#
+# DAMAGEABLE "INTERFACE" (duck-typing sucks)
+#
+
+func isDamageable():
+	return true
+
+func damage(value:int,kind:Damageable.DamageType):
+	pass
+
+func die():
+	pass
