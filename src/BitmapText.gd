@@ -1,4 +1,5 @@
 @tool
+class_name BitmapText
 
 extends MeshInstance2D
 @export_multiline var text = "Test"

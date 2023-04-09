@@ -6,3 +6,4 @@ extends Node2D
 func _ready():
 	tint.play("fade_in")
 	State.initialize()
+	Global.presearch()
