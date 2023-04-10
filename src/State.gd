@@ -19,6 +19,7 @@ func initialize():
 
 func refresh():
 	for obj in _allObjs:
+		print ("REFRESH: " + obj.name)
 		obj.refresh()
 
 func generatePassword():
@@ -48,7 +49,7 @@ func setFlag(idx:int, v:int):
 	_flags[idx] = v
 
 func findByClass(node: Node, result : Array) -> void:
-	var v = node is BreakableWall
+	var v = node is ReactObject
 	if v:
 		result.push_back(node)
 	for child in node.get_children():

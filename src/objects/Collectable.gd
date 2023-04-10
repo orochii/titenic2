@@ -13,6 +13,11 @@ func refresh():
 	if isSet():
 		disable()
 
+func setFlag():
+	var v = State.getFlag(flagIdx)
+	v = v | flagValue
+	State.setFlag(flagIdx, v)
+
 func isSet():
 	var v = State.getFlag(flagIdx)
 	v = v & flagValue
@@ -22,8 +27,6 @@ func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index)
 	if isSet():
 		return
 	if (body.name == "Player"):
-		var v = State.getFlag(flagIdx)
-		v = v | flagValue
-		State.setFlag(flagIdx, v)
+		setFlag()
 		disable()
 		var popup = Global.popUp().showPopup(popupText)
