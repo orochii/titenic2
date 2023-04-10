@@ -555,12 +555,13 @@ libraries = {
 "": SubResource("AnimationLibrary_5ehcj")
 }
 
-[node name="Node2D" type="Node2D" parent="." node_paths=PackedStringArray("animator", "cursor", "passCursor", "passMarker")]
+[node name="Node2D" type="Node2D" parent="." node_paths=PackedStringArray("animator", "cursor", "passCursor", "passMarker", "passString")]
 script = ExtResource("5_nqtaj")
 animator = NodePath("../TitleAnimations")
 next_scene = ExtResource("6_0s6mw")
 cursor = NodePath("../TitleScreen/CURSOR")
 passCursor = NodePath("../PassWordScreen/PASSCURSOR")
 passMarker = NodePath("../PassWordScreen/PASSMARKER")
+passString = NodePath("../PassWordScreen/PASSWORD")
 
 [connection signal="animation_finished" from="TitleAnimations" to="Node2D" method="_on_title_animations_animation_finished"]

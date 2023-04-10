@@ -11,6 +11,7 @@ var REPEAT_DELAY = 0.1
 @export var cursor : MeshInstance2D
 @export var passCursor : MeshInstance2D
 @export var passMarker : MeshInstance2D
+@export var passString : BitmapText
 
 var cursorStart = Vector2(0,0)
 var passcursorStart = Vector2(0,0)
@@ -18,6 +19,8 @@ var passMarkerStart = Vector2(0,0)
 var state = MenuState.IDLE
 var idx = 0
 var timer = 0
+# Password stuff
+var _currPassword = ""
 
 func _ready():
 	cursorStart = cursor.position
@@ -39,6 +42,8 @@ func _on_title_animations_animation_finished(anim_name):
 			state = MenuState.PASS
 			idx = 0
 			passCursor.position = passcursorStart
+			_currPassword = ""
+			updatePassVisuals()
 		"next_screen":
 			gotoNext()
 
@@ -83,11 +88,46 @@ func _process(delta):
 			passCursor.position = passcursorStart + Vector2(_x, _y)
 			# Cancel
 			if (Input.is_action_just_pressed("ui_cancel")):
-				state = MenuState.IDLE
-				animator.play("return_screen")
+				if _currPassword.length() == 0:
+					state = MenuState.IDLE
+					animator.play("return_screen")
+				else:
+					passDeleteChar()
 			# Accept
 			elif (Input.is_action_just_pressed("ui_select")):
-				animator.play("next_screen")
+				if _currPassword.length() == State.composition.size():
+					State.password = _currPassword
+					animator.play("next_screen")
+				else:
+					passWriteChar(idx)
 
 func gotoNext():
 	get_tree().change_scene_to_file(next_scene.resource_path)
+
+# Password stuff
+func passWriteChar(cIdx):
+	# Do stuff
+	if _currPassword.length() < State.composition.size():
+		var c = String.chr(cIdx + 65)
+		_currPassword += c
+	# Update
+	updatePassVisuals()
+
+func passDeleteChar():
+	#Do stuff
+	if _currPassword.length() > 0:
+		_currPassword = _currPassword.substr(0, _currPassword.length()-1)
+	# Update
+	updatePassVisuals()
+
+func updatePassVisuals():
+	var _t = ""
+	for i in range(0, State.composition.size()):
+		_t += _currPassword.substr(i,1)
+		if i==3:
+			_t += " "
+	passString.text = _t
+	var mxD = (_currPassword.length()*8)
+	if _currPassword.length()>3:
+		mxD += 8
+	passMarker.position = passMarkerStart + Vector2(mxD, 0)
