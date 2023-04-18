@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://ca5a8dwj81m7h"]
+
+[ext_resource type="Script" path="res://src/enemies/EnemyWalker.gd" id="1_maeos"]
+[ext_resource type="Texture2D" uid="uid://2ovgjfip4fya" path="res://textures/objects.png" id="2_bgi3j"]
+[ext_resource type="PackedScene" uid="uid://cmj623bmv3pvq" path="res://prototypes/fx_zombieDeath.tscn" id="2_dd4v3"]
+[ext_resource type="Script" path="res://src/AttackLibrary.gd" id="3_7wfsp"]
+[ext_resource type="Script" path="res://src/Attack.gd" id="4_j7yud"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_llxib"]
+radius = 3.0
+height = 24.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oktl2"]
+atlas = ExtResource("2_bgi3j")
+region = Rect2(16, 16, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6u5jo"]
+atlas = ExtResource("2_bgi3j")
+region = Rect2(0, 16, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xsgp"]
+atlas = ExtResource("2_bgi3j")
+region = Rect2(16, 16, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jyhod"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oktl2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6u5jo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xsgp")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cybvd"]
+size = Vector2(16, 16)
+
+[node name="Enemy_Zombie" type="CharacterBody2D" node_paths=PackedStringArray("anim", "attackRoot")]
+position = Vector2(304, 160)
+script = ExtResource("1_maeos")
+anim = NodePath("AnimatedSprite2D")
+attackRoot = NodePath("AttackLibrary")
+onDeathFX = ExtResource("2_dd4v3")
+
+[node name="Standing" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("CapsuleShape2D_llxib")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_jyhod")
+animation = &"run"
+
+[node name="AttackLibrary" type="Area2D" parent="."]
+position = Vector2(0, -12)
+script = ExtResource("3_7wfsp")
+
+[node name="AttackBite" type="CollisionShape2D" parent="AttackLibrary"]
+position = Vector2(8, -4)
+shape = SubResource("RectangleShape2D_cybvd")
+debug_color = Color(0.984314, 0.117647, 0, 0.419608)
+script = ExtResource("4_j7yud")
+value = 1
+kind = 1
+
+[connection signal="body_entered" from="AttackLibrary" to="AttackLibrary" method="_on_body_entered"]

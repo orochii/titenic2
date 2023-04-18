@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv5656eeivj8d"
-path="res://.godot/imported/losstime.jpg-67cb0f6521385b634b11163fa54abcbc.ctex"
+uid="uid://boqompm7b7jh5"
+path="res://.godot/imported/gampag_background.png-5f1dbbc4d1aa2365cbf1dd7b77530956.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/losstime.jpg"
-dest_files=["res://.godot/imported/losstime.jpg-67cb0f6521385b634b11163fa54abcbc.ctex"]
+source_file="res://gampag_background.png"
+dest_files=["res://.godot/imported/gampag_background.png-5f1dbbc4d1aa2365cbf1dd7b77530956.ctex"]
 
 [params]
 

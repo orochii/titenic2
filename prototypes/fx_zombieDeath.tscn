@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=3 uid="uid://cmj623bmv3pvq"]
+
+[ext_resource type="Script" path="res://src/visuals/EnemyDeath.gd" id="1_nfbh7"]
+[ext_resource type="Texture2D" uid="uid://2ovgjfip4fya" path="res://textures/objects.png" id="2_cuyty"]
+[ext_resource type="Texture2D" uid="uid://bexwke38hqdr" path="res://textures/particle_1.png" id="3_37i12"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fn87"]
+atlas = ExtResource("2_cuyty")
+region = Rect2(32, 16, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytuyo"]
+atlas = ExtResource("2_cuyty")
+region = Rect2(48, 16, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfnmo"]
+atlas = ExtResource("2_cuyty")
+region = Rect2(64, 16, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa5n3"]
+atlas = ExtResource("2_cuyty")
+region = Rect2(80, 16, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ef2ag"]
+atlas = ExtResource("2_cuyty")
+region = Rect2(96, 16, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_il7c4"]
+atlas = ExtResource("2_cuyty")
+region = Rect2(112, 16, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dw6pv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fn87")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytuyo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfnmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa5n3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ef2ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_il7c4")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lhp7f"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xuyna"]
+emission_shape = 1
+emission_sphere_radius = 8.82
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="EnemyDeath" type="Node2D"]
+position = Vector2(304, 160)
+script = ExtResource("1_nfbh7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_dw6pv")
+
+[node name="WalkParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_lhp7f")
+emitting = false
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_xuyna")
+texture = ExtResource("3_37i12")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.1

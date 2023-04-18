@@ -1,0 +1,60 @@
+:root {
+	/* -- Colors -- */
+	--col_background: #000000;
+	--col_backgroundOdd: #404040;
+	--col_text: #808080;
+	--col_imgBack: #010101;
+	--col_link: #E8B848;
+	--col_strong: #F0FCF0;
+	
+	/* -- Images -- */
+	--img_back: url("https://rpgmaker.net/media/content/users/6423/locker/gampag_background.png");
+}
+
+/* ---------------- Fonts ---------------- */
+@font-face {
+	font-family: fra_go_bk;
+	src: url("https://rpgmaker.net/media/content/users/6423/locker/titenic2.woff") format("woff");
+}
+@font-face {
+	font-family: segoeui;
+	src: url("https://rpgmaker.net/media/content/users/6423/locker/titenic2.woff") format("woff");
+}
+
+/* ---- General elements ---- */
+#header {
+    color: var(--col_imgBack);
+}
+
+#body {
+    background-image: var(--img_back);
+    background-repeat: repeat;
+    background-color: var(--col_imgBack);
+	background-attachment: fixed;
+	color: var(--col_text);
+	font-family: 'segoeui';
+	font-size: 16px;
+	line-height: 100%;
+}
+
+#main_column {
+    background: var(--col_background);
+    color: var(--col_text);
+}
+
+div.frame {
+    background: var(--col_background);
+}
+
+div.contents.odd {
+    background: var(--col_backgroundOdd);
+}
+
+a {
+    color: var(--col_link);
+}
+
+strong {
+    font-weight: normal;
+    color: var(--col_strong);
+}

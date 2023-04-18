@@ -2,6 +2,7 @@ extends Node
 class_name StateClass
 enum FlagNames {LIFE,SCORE,UPGRADES}
 
+var player:Player = null
 var composition = [4,6,2,3,7,0,5,1]
 var password = ""
 
@@ -54,3 +55,13 @@ func findByClass(node: Node, result : Array) -> void:
 		result.push_back(node)
 	for child in node.get_children():
 		findByClass(child, result)
+
+func changeArea(targetArea: Node2D):
+	var cam = get_viewport().get_camera_2d()
+	if (cam != null):
+		if targetArea.has_meta("areaSize"):
+			var r: Vector2i = targetArea.get_meta("areaSize")
+			cam.limit_left = targetArea.global_position.x
+			cam.limit_top = targetArea.global_position.y
+			cam.limit_right = targetArea.global_position.x + r.x
+			cam.limit_bottom = targetArea.global_position.y + r.y

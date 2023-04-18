@@ -10,15 +10,24 @@ TITENIC 2
 	I don't remember the name of the other guy so you don't either.
 	
 TODO	
-	Room9: Ship's engine room, at bottom. First boss!
-	Room10: Filler over engine room (?).
-	Room11 and 12: Ship's deck.
-	Player attacks
+DONE	Room9: Ship's engine room, at bottom. First boss! ><
+DONE	Room10: Filler over engine room (?).
+DONE	Room11 and 12: Ship's deck.
+DONE	Player attacks support
+DONE	- Slide
+DONE	- Stand attack
+DONE	- Run attack
+DONE	- Air attack
+DONE	- Crouch attack
+DONE	- Ladder attack
+DONE	DamagingBlock
+DONE	HUD
+DONE	- Life
 	Enemies: Basic ghoul, jumping spooder (left-right)
-	Powerup interaction
-		- Super Boots: enable double jump and dash -> at Room3
-		- Bomb:	Can drop/throw bombs by holding attack for 1s. -> at bottom of ship (room9? todo)
-	Boss1: At Room9 (?). IDK.
+DONE	Powerup interaction
+DONE	- Super Boots: enable double jump and dash -> at Room3
+	- Bomb:	Can drop/throw bombs by holding attack for 1s. -> at bottom of ship (room9? todo)
+	Boss1: At Room9 (?). Rose.
 --VERTICAL SLICE--	
 	
 	

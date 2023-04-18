@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7dnbp3lek6og"
-path="res://.godot/imported/bleh.png-b51bbdd3a516ed586127b3edc9ceec84.ctex"
+uid="uid://cw5qwqvbc4ppv"
+path="res://.godot/imported/screen6.png-38154e61506811994eb3009d208f7023.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/bleh.png"
-dest_files=["res://.godot/imported/bleh.png-b51bbdd3a516ed586127b3edc9ceec84.ctex"]
+source_file="res://screen6.png"
+dest_files=["res://.godot/imported/screen6.png-38154e61506811994eb3009d208f7023.ctex"]
 
 [params]
 
