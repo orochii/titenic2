@@ -100,7 +100,7 @@ func processText(text : String) -> Dictionary:
 		var s = result.get_string()
 		processedText = processedText.replace(s,CODE_SYMBOL)
 		var code = ["c",result.get_string(1).to_int()]
-		params.push_front(code)
+		params.push_back(code)
 	# Prepare for return
 	var retVal = {"text":processedText,"params":params}
 	return retVal

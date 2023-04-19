@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal death(pos:Vector2)
+
 enum MoveState {IDLE, RUN}
 enum ActionState {IDLE, ATTACK}
 
@@ -15,6 +17,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var moveState= MoveState.IDLE
 var actionState= ActionState.IDLE
 var actionTimer = 0
+var actionSeq = 0
 var currDmg = 0
 var invincTimer = 0.0
 var direction = 1
@@ -29,6 +32,7 @@ func _physics_process(delta):
 	# Acting update
 	if actionState != ActionState.IDLE:
 		actionTimer -= delta
+		update_action()
 		if actionTimer <= 0:
 			actionState = ActionState.IDLE
 			attackRoot.unsetAttack()
@@ -67,8 +71,6 @@ func updateInvincTime(delta):
 		anim.modulate = Color.RED if f%2==0 else Color.WHITE
 func updateAnimation():
 	match actionState:
-		ActionState.ATTACK:
-			anim.play("attack")
 		ActionState.IDLE:
 			match moveState:
 				MoveState.IDLE:
@@ -81,13 +83,30 @@ func acting():
 	return actionState != ActionState.IDLE
 func action_attack():
 	actionState = ActionState.ATTACK
-	actionTimer = 0.2
-	attackRoot.setAttack(0)
+	actionTimer = 1.4
+	actionSeq = 0
+	anim.play("attackPrepare")
+	print("ATTACK: Windup")
+func update_action():
+	match(actionState):
+		ActionState.ATTACK:
+			if actionSeq==0 && actionTimer < 0.4:
+				print("ATTACK: Execute")
+				anim.play("attack")
+				attackRoot.setAttack(0)
+				actionSeq = 1
+			elif actionSeq==1 && actionTimer < 0.3:
+				print("ATTACK: Unset")
+				attackRoot.unsetAttack()
+				actionSeq = 2
 
 # AI
 func should_jump():
 	return queuedJump
 func update_direction(delta):
+	if acting():
+		direction = 0
+		return
 	aiTimer -= delta
 	# Check for closeness to player
 	var pPos = State.player.global_position
@@ -99,9 +118,9 @@ func update_direction(delta):
 		# Ignore player
 		if aiTimer < 0:
 			direction = randi_range(-1, 1)
-			aiTimer = randf_range(1,4)
+			resetAITimer()
 	else:
-		aiTimer -= delta*2
+		aiTimer -= delta*4
 		# Target player
 		if (abs(xDiff) > 16 || abs(yDiff) > 24):
 			# Go towards player
@@ -114,7 +133,7 @@ func update_direction(delta):
 						queuedJump = true
 					3:
 						queuedAttack = true
-				aiTimer = randf_range(1,4)
+				resetAITimer()
 		else:
 			# Stand and attack! (?)
 			direction = 0
@@ -126,8 +145,10 @@ func update_direction(delta):
 						queuedJump = true
 					_:
 						queuedAttack = true
-				aiTimer = randf_range(1,4)
+				
 
+func resetAITimer():
+	aiTimer = randf_range(0.5,2)
 # ==============================================================================
 # DAMAGEABLE "INTERFACE" (duck-typing sucks)
 # ==============================================================================
@@ -146,6 +167,8 @@ func damage(value:int,kind:Damageable.DamageType):
 		if currDmg == maxLifes():
 			die()
 func die():
+	death.emit(global_position + Vector2(0,-8))
 	var fx = onDeathFX.instantiate() as Node2D
+	get_parent().add_child(fx)
 	fx.global_position = global_position
 	self.queue_free()

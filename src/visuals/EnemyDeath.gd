@@ -1,12 +1,12 @@
 extends Node2D
 
-@export var life:int
+@export var life:float
 @export var particles:GPUParticles2D
 
-var timer = 0
+var timer:float = 0
 
 func _ready():
-	particles.emitting = true
+	if (particles != null): particles.emitting = true
 
 func _process(delta):
 	timer += delta

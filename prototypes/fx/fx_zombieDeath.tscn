@@ -70,16 +70,19 @@ orbit_velocity_max = 0.0
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
-[node name="EnemyDeath" type="Node2D"]
-position = Vector2(304, 160)
+[node name="EnemyDeath" type="Node2D" node_paths=PackedStringArray("particles")]
 script = ExtResource("1_nfbh7")
+life = 0.5
+particles = NodePath("WalkParticles")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_dw6pv")
+autoplay = "default"
 
 [node name="WalkParticles" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_lhp7f")
+position = Vector2(0, -16)
 emitting = false
 amount = 2
 process_material = SubResource("ParticleProcessMaterial_xuyna")

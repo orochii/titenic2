@@ -7,7 +7,7 @@ var MAX_PASS_OPTIONS = 16
 var REPEAT_DELAY = 0.1
 
 @export var animator : AnimationPlayer
-@export var next_scene : PackedScene
+@export_file("*.tscn") var next_scene:String
 @export var cursor : MeshInstance2D
 @export var passCursor : MeshInstance2D
 @export var passMarker : MeshInstance2D
@@ -102,7 +102,7 @@ func _process(delta):
 					passWriteChar(idx)
 
 func gotoNext():
-	get_tree().change_scene_to_file(next_scene.resource_path)
+	get_tree().change_scene_to_file(next_scene)
 
 # Password stuff
 func passWriteChar(cIdx):

@@ -4,6 +4,8 @@ class_name Player
 enum MoveState {IDLE, RUN, RAISING, FALLING, CROUCHING, LADDER, LADDER_UP, LADDER_DOWN}
 enum ActionState {IDLE, SLIDE, ATTACK}
 
+signal death
+
 @export var anim: AnimatedSprite2D
 @export var standCollision: CollisionShape2D
 @export var attackRoot: AttackLibrary
@@ -28,6 +30,7 @@ var remJumps=0
 var ladderCount=0
 var inLadder = false
 var lastLadderX = 0
+var dead = false
 
 func _physics_process(delta):
 	# Particles update
@@ -50,9 +53,9 @@ func _physics_process(delta):
 	else:
 		remJumps = maxJumps()
 	# Read direction.
-	var direction = Input.get_axis("ui_left", "ui_right")
+	var direction = Input.get_axis("ui_left", "ui_right") if can_input() else 0
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_select") and can_jump():
+	if Input.is_action_just_pressed("ui_select") and can_jump() and can_input():
 		resetLadder()
 		if Input.is_action_pressed("ui_down"):
 			if direction:
@@ -65,14 +68,12 @@ func _physics_process(delta):
 			jumping = true
 			remJumps -= 1
 	elif jumping:
-		if velocity.y < 0 and Input.is_action_pressed("ui_select"):
+		if velocity.y < 0 and Input.is_action_pressed("ui_select") and can_input():
 			velocity.y = JUMP_VELOCITY
-		else:
+		else: 
 			jumping = false
-		if jumpTime > 0:
-			jumpTime -= delta
-		else:
-			jumping = false
+		if jumpTime > 0: jumpTime -= delta
+		else: jumping = false
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	if direction and isMovingAction() and !isInLadder():
@@ -98,23 +99,24 @@ func _physics_process(delta):
 			moveState = MoveState.RAISING
 		elif velocity.y > 0:
 			moveState = MoveState.FALLING
-	if isInLadder():
-		moveState = MoveState.LADDER
-		if Input.is_action_pressed("ui_down"):
-			moveState = MoveState.LADDER_UP
-			position.y += 2
-		elif Input.is_action_pressed("ui_up"):
-			moveState = MoveState.LADDER_DOWN
-			position.y -= 2
-	elif ladderCount > 0:
-		if Input.is_action_pressed("ui_down") || Input.is_action_pressed("ui_up"):
-			getOnLadder()
-	elif Input.is_action_pressed("ui_down") and not acting():
-		moveState = MoveState.CROUCHING
-		standCollision.disabled = true
-		velocity.x = 0
-	if Input.is_action_just_pressed("ui_cancel") and not acting():
-		action_attack(direction)
+	if can_input():
+		if isInLadder():
+			moveState = MoveState.LADDER
+			if Input.is_action_pressed("ui_down"):
+				moveState = MoveState.LADDER_UP
+				position.y += 2
+			elif Input.is_action_pressed("ui_up"):
+				moveState = MoveState.LADDER_DOWN
+				position.y -= 2
+		elif ladderCount > 0:
+			if (is_on_floor() && Input.is_action_pressed("ui_down")) || Input.is_action_pressed("ui_up"):
+				getOnLadder()
+		elif Input.is_action_pressed("ui_down") and not acting():
+			moveState = MoveState.CROUCHING
+			standCollision.disabled = true
+			velocity.x = 0
+		if Input.is_action_just_pressed("ui_cancel") and not acting():
+			action_attack(direction)
 	updateAnimation()
 	move_and_slide()
 
@@ -127,6 +129,7 @@ func updateInvincTime(delta):
 		var f = int(invincTimer * 10)
 		anim.modulate = Color.RED if f%2==0 else Color.WHITE
 func updateAnimation():
+	if (dead): return
 	match actionState:
 		ActionState.ATTACK:
 			match moveState:
@@ -203,6 +206,8 @@ func isMovingAction():
 func is_on_surface():
 	return is_on_floor() || isInLadder()
 
+func can_input():
+	return !dead
 func can_jump():
 	if acting():
 		return false
@@ -229,16 +234,21 @@ func maxLifes():
 func isDamageable():
 	return true
 func damage(value:int,kind:Damageable.DamageType):
+	if dead:
+		return
 	if (invincTimer > 0):
 		return
 	if (kind != Damageable.DamageType.PLAYER):
-		invincTimer = 1
-		currDmg = min((currDmg + value),maxLifes())
+		if (value > 0): invincTimer = 1
+		currDmg = clamp(currDmg + value, 0, maxLifes())
 		refresh()
 		if currDmg == maxLifes():
 			die()
 func die():
-	print("Oops I'm ded.")
+	if (!dead):
+		dead = true
+		death.emit()
+		anim.play("death")
 func refresh():
 	hudRef.refreshLifes()
 

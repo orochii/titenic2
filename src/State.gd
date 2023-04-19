@@ -15,6 +15,7 @@ func initialize():
 	readPassword()
 	# - Refresh all objects
 	var root = get_node('/root')
+	_allObjs.clear()
 	findByClass(root, _allObjs)
 	refresh()
 
