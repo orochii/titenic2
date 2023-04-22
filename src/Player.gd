@@ -6,10 +6,15 @@ enum ActionState {IDLE, SLIDE, ATTACK}
 
 signal death
 
+@export_category("Components")
 @export var anim: AnimatedSprite2D
 @export var standCollision: CollisionShape2D
 @export var attackRoot: AttackLibrary
 @export var walkParticles: GPUParticles2D
+
+@export_category("Sounds")
+@export var sfxFall: AudioStreamPlayer2D
+@export var sfxJump: AudioStreamPlayer2D
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -270.0
@@ -31,6 +36,7 @@ var ladderCount=0
 var inLadder = false
 var lastLadderX = 0
 var dead = false
+var on_ground = true
 
 func _physics_process(delta):
 	# Particles update
@@ -46,11 +52,15 @@ func _physics_process(delta):
 			attackRoot.unsetAttack()
 	# Add the gravity.
 	if not is_on_surface():
+		on_ground = false
 		velocity.y += gravity * delta
 		if velocity.y > 0:
 			velocity.y += gravity * delta
 		velocity.y = clampf(velocity.y, -MAX_Y_VELOCITY, MAX_Y_VELOCITY)
 	else:
+		if !on_ground:
+			sfxFall.play()
+			on_ground = true
 		remJumps = maxJumps()
 	# Read direction.
 	var direction = Input.get_axis("ui_left", "ui_right") if can_input() else 0
@@ -61,8 +71,10 @@ func _physics_process(delta):
 			if direction:
 				action_slide(direction)
 			else:
+				sfxJump.play()
 				position.y += 2
 		else:
+			sfxJump.play()
 			velocity.y = JUMP_VELOCITY
 			jumpTime = JUMP_TIME
 			jumping = true
@@ -167,17 +179,22 @@ func action_attack(direction):
 	actionTimer = 0.2
 	match moveState:
 		MoveState.IDLE, MoveState.LADDER, MoveState.LADDER_UP, MoveState.LADDER_DOWN:
+			attackRoot.playFx(1)
 			attackRoot.setAttack(1)
 		MoveState.RUN: 
 			velocity.x = 600.0 * direction
+			attackRoot.playFx(2)
 			attackRoot.setAttack(2)
 		MoveState.RAISING, MoveState.FALLING:
+			attackRoot.playFx(2)
 			attackRoot.setAttack(2)
 		MoveState.CROUCHING:
+			attackRoot.playFx(0)
 			attackRoot.setAttack(0)
 func action_slide(direction):
 	if !hasBoots():
 		return
+	sfxJump.play()
 	actionState = ActionState.SLIDE
 	actionTimer = 0.5
 	velocity.x = 500.0 * direction

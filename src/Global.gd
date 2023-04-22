@@ -1,15 +1,34 @@
 extends Node
 
 var _popup : PopUp = null
+var _msgBox: PopUp = null
 
 func presearch():
 	popUp()
+	msgBox()
 
 func popUp() -> PopUp:
 	if (_popup == null):
-		var type = PopUp;
-		_popup = findObjectOfClass(get_tree().root, "PopUp") as PopUp
+		_popup = findObjectOfName(get_tree().root, "PopUp") as PopUp
 	return _popup
+
+func msgBox() -> PopUp:
+	if (_msgBox == null):
+		_msgBox = findObjectOfName(get_tree().root, "Message") as PopUp
+	return _msgBox
+
+func findObjectOfName(node: Node, name: String) -> Node:
+	# Find in children
+	for child in node.get_children():
+		var v = findObjectOfName(child,name)
+		if (v != null):
+			return v
+	# Return actual thing
+	var e = eval("return node.name==\""+name+"\"", {"node":node})
+	if (e):
+		return node
+	else:
+		return null
 
 func findObjectOfClass(node: Node, className: String) -> Node:
 	# Find in children

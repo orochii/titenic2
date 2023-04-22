@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6rmo84jgm2uh"]
+
+[ext_resource type="Script" path="res://src/PopUp.gd" id="1_rkh1b"]
+[ext_resource type="Texture2D" uid="uid://c8ifan14xlveq" path="res://textures/jeff.png" id="2_n7152"]
+[ext_resource type="Script" path="res://src/BitmapText.gd" id="3_ktl8h"]
+[ext_resource type="Texture2D" uid="uid://rl41gu24gwwd" path="res://textures/palette.png" id="4_xs20e"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_e1rbj"]
+
+[node name="PopUp" type="Control" node_paths=PackedStringArray("shownText")]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_top = 88.0
+offset_right = 256.0
+offset_bottom = 120.0
+script = ExtResource("1_rkh1b")
+shownText = NodePath("Line1")
+cooldown = 1.2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Line1" type="MeshInstance2D" parent="."]
+position = Vector2(16, 0)
+mesh = SubResource("ArrayMesh_e1rbj")
+texture = ExtResource("2_n7152")
+script = ExtResource("3_ktl8h")
+text = ""
+colorPick = ExtResource("4_xs20e")

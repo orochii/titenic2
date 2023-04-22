@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://cgr7lsk53svn"]
+
+[ext_resource type="Script" path="res://src/enemies/EnemyCrawler.gd" id="1_1tnlw"]
+[ext_resource type="Texture2D" uid="uid://2ovgjfip4fya" path="res://textures/objects.png" id="2_8pvwf"]
+[ext_resource type="PackedScene" uid="uid://ek835ptbndxc" path="res://prototypes/enemies/barnacle_projectile.tscn" id="2_h5wyp"]
+[ext_resource type="PackedScene" uid="uid://8e3ha5mpiuq7" path="res://prototypes/enemies/barnacle_projectile_l.tscn" id="3_tq3i2"]
+[ext_resource type="PackedScene" uid="uid://bxsagtqync4m0" path="res://prototypes/enemies/barnacle_projectile_r.tscn" id="4_4ywr8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rwwo"]
+atlas = ExtResource("2_8pvwf")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_duoqg"]
+atlas = ExtResource("2_8pvwf")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rg82l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rwwo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_duoqg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bl18h"]
+radius = 3.0
+height = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_57yun"]
+radius = 8.0
+
+[node name="TravellingBarnacle" type="CharacterBody2D" node_paths=PackedStringArray("anim", "floorCast", "wallCast", "attackDetect")]
+collision_layer = 3
+script = ExtResource("1_1tnlw")
+max_Lifes = 5
+anim = NodePath("AnimatedSprite2D")
+floorCast = NodePath("Casters/CastToFloor")
+wallCast = NodePath("Casters/CastToSide")
+attackDetect = NodePath("Casters/AttackDetect")
+projectile = ExtResource("2_h5wyp")
+projectileL = ExtResource("3_tq3i2")
+projectileR = ExtResource("4_4ywr8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rg82l")
+autoplay = "default"
+frame_progress = 0.235102
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_bl18h")
+
+[node name="Casters" type="Node2D" parent="."]
+visible = false
+
+[node name="CastToFloor" type="RayCast2D" parent="Casters"]
+position = Vector2(4, 7)
+target_position = Vector2(0, 16)
+
+[node name="CastToSide" type="RayCast2D" parent="Casters"]
+position = Vector2(6, 3)
+target_position = Vector2(4, 0)
+
+[node name="AttackDetect" type="ShapeCast2D" parent="Casters"]
+shape = SubResource("CircleShape2D_57yun")
+target_position = Vector2(0, -96)
+max_results = 1

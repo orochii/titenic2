@@ -1,25 +1,17 @@
-extends CharacterBody2D
-
-signal death(pos:Vector2)
+extends EnemyBase
 
 enum MoveState {IDLE, RUN}
 enum ActionState {IDLE, ATTACK}
 
-const SPEED = 100.0
-const JUMP_VELOCITY = -250.0
-
-@export var max_Lifes = 2
-@export var anim: AnimatedSprite2D
+@export var SPEED = 100.0
+@export var JUMP_VELOCITY = -250.0
 @export var attackRoot: AttackLibrary
-@export var onDeathFX: PackedScene
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var moveState= MoveState.IDLE
 var actionState= ActionState.IDLE
 var actionTimer = 0
 var actionSeq = 0
-var currDmg = 0
-var invincTimer = 0.0
 var direction = 1
 var aiTimer = 0
 var queuedJump = false
@@ -103,6 +95,7 @@ func update_action():
 # AI
 func should_jump():
 	return queuedJump
+
 func update_direction(delta):
 	if acting():
 		direction = 0
@@ -145,30 +138,6 @@ func update_direction(delta):
 						queuedJump = true
 					_:
 						queuedAttack = true
-				
 
 func resetAITimer():
-	aiTimer = randf_range(0.5,2)
-# ==============================================================================
-# DAMAGEABLE "INTERFACE" (duck-typing sucks)
-# ==============================================================================
-func remLifes():
-	return maxLifes() - currDmg
-func maxLifes():
-	return max_Lifes
-func isDamageable():
-	return true
-func damage(value:int,kind:Damageable.DamageType):
-	if (invincTimer > 0):
-		return
-	if (kind != Damageable.DamageType.ENEMY):
-		invincTimer = 0.2
-		currDmg = min((currDmg + value),maxLifes())
-		if currDmg == maxLifes():
-			die()
-func die():
-	death.emit(global_position + Vector2(0,-8))
-	var fx = onDeathFX.instantiate() as Node2D
-	get_parent().add_child(fx)
-	fx.global_position = global_position
-	self.queue_free()
+	aiTimer = randf_range(0.5,1.2)

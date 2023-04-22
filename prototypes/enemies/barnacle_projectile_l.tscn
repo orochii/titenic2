@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://8e3ha5mpiuq7"]
+
+[ext_resource type="Script" path="res://src/enemies/BarnacleProjectile.gd" id="1_j3g6y"]
+[ext_resource type="Texture2D" uid="uid://2ovgjfip4fya" path="res://textures/objects.png" id="2_rmiwm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rral4"]
+atlas = ExtResource("2_rmiwm")
+region = Rect2(40, 64, 8, 8)
+
+[node name="BarnacleProjectileL" type="Node2D" node_paths=PackedStringArray("cast")]
+script = ExtResource("1_j3g6y")
+speed = Vector2(-60, -60)
+cast = NodePath("RayCast2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = SubResource("AtlasTexture_rral4")
+flip_h = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, -7)
+hit_from_inside = true

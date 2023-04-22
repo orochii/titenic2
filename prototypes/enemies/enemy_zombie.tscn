@@ -98,6 +98,7 @@ animations = [{
 size = Vector2(16, 16)
 
 [node name="Enemy_Zombie" type="CharacterBody2D" node_paths=PackedStringArray("anim", "attackRoot")]
+collision_layer = 3
 script = ExtResource("1_81ckv")
 anim = NodePath("AnimatedSprite2D")
 attackRoot = NodePath("AttackLibrary")

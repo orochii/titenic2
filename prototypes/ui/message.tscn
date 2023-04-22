@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxv1tkvgm15d5"]
+
+[ext_resource type="Script" path="res://src/PopUp.gd" id="1_o54xr"]
+[ext_resource type="Texture2D" uid="uid://c8ifan14xlveq" path="res://textures/jeff.png" id="2_pj5y5"]
+[ext_resource type="Script" path="res://src/BitmapText.gd" id="3_0mjvk"]
+[ext_resource type="Texture2D" uid="uid://rl41gu24gwwd" path="res://textures/palette.png" id="4_br7ur"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_mktoj"]
+
+[node name="Message" type="Control" node_paths=PackedStringArray("shownText")]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_top = 32.0
+offset_right = 256.0
+offset_bottom = 80.0
+script = ExtResource("1_o54xr")
+shownText = NodePath("Line1")
+cooldown = 1.2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Line1" type="MeshInstance2D" parent="."]
+position = Vector2(16, 8)
+mesh = SubResource("ArrayMesh_mktoj")
+texture = ExtResource("2_pj5y5")
+script = ExtResource("3_0mjvk")
+text = ""
+colorPick = ExtResource("4_br7ur")

@@ -1,0 +1,95 @@
+[gd_scene load_steps=13 format=3 uid="uid://b87rkfykfjprm"]
+
+[ext_resource type="Script" path="res://src/enemies/EnemyCrawler.gd" id="1_qv8ls"]
+[ext_resource type="PackedScene" uid="uid://ek835ptbndxc" path="res://prototypes/enemies/barnacle_projectile.tscn" id="2_sr0lt"]
+[ext_resource type="PackedScene" uid="uid://8e3ha5mpiuq7" path="res://prototypes/enemies/barnacle_projectile_l.tscn" id="3_w2g1t"]
+[ext_resource type="PackedScene" uid="uid://bxsagtqync4m0" path="res://prototypes/enemies/barnacle_projectile_r.tscn" id="4_wxvwy"]
+[ext_resource type="Texture2D" uid="uid://2ovgjfip4fya" path="res://textures/objects.png" id="5_mw510"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aq8fs"]
+atlas = ExtResource("5_mw510")
+region = Rect2(64, 104, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3krl3"]
+atlas = ExtResource("5_mw510")
+region = Rect2(0, 80, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mkfo"]
+atlas = ExtResource("5_mw510")
+region = Rect2(32, 80, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dns5c"]
+atlas = ExtResource("5_mw510")
+region = Rect2(0, 104, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwe3m"]
+atlas = ExtResource("5_mw510")
+region = Rect2(32, 104, 32, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rg82l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aq8fs")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3krl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mkfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dns5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwe3m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bl18h"]
+radius = 8.0
+height = 24.0
+
+[node name="DeathRose" type="CharacterBody2D" node_paths=PackedStringArray("floorCast", "wallCast", "attackDetect", "anim")]
+collision_layer = 3
+script = ExtResource("1_qv8ls")
+SPEED = 0.0
+floorCast = NodePath("Casters/CastToFloor")
+wallCast = NodePath("Casters/CastToSide")
+attackDetect = NodePath("")
+projectile = ExtResource("2_sr0lt")
+projectileL = ExtResource("3_w2g1t")
+projectileR = ExtResource("4_wxvwy")
+max_Lifes = 5
+anim = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_rg82l")
+autoplay = "default"
+frame_progress = 0.564678
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_bl18h")
+
+[node name="Casters" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+
+[node name="CastToFloor" type="RayCast2D" parent="Casters"]
+position = Vector2(4, 7)
+target_position = Vector2(0, 16)
+
+[node name="CastToSide" type="RayCast2D" parent="Casters"]
+position = Vector2(6, 3)
+target_position = Vector2(4, 0)

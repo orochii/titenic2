@@ -1,6 +1,8 @@
 extends Control
 class_name PopUp
 
+signal onClose
+
 @export var shownText : BitmapText
 @export var cooldown = 1.0
 
@@ -11,14 +13,16 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 
 func _process(delta):
-	_timer += delta
-	if (_timer > cooldown):
-		if (Input.is_action_just_pressed("ui_select")):
+	if !visible: return
+	_timer -= delta
+	if (_timer < 0):
+		if Input.is_action_just_pressed("ui_select") || Input.is_action_just_pressed("ui_cancel"):
 			visible = false
 			get_tree().paused = false
+			onClose.emit()
 
-func showPopup(text:String):
+func showPopup(text:String,delay=cooldown):
 	shownText.text = text
-	_timer = 0
+	_timer = delay
 	visible = true
 	get_tree().paused = true

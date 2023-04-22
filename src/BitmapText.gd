@@ -8,7 +8,7 @@ extends MeshInstance2D
 var _startCoord = Vector2i(0,0)
 var _charSize = Vector2i(8,8)
 var _length = 26
-var _characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz(|)<=>_-+/\\*., 0123456789©[#~·]!?←↑→↓↖↗↘↙🅐🅑🅒🅓🅔🅕🅖🅗🅘🅙🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩"
+var _characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz(|)<=>_-+/\\*., 0123456789©[#~·]!?←↑→↓↖↗↘↙🅐🅑🅒🅓🅔🅕🅖🅗🅘🅙🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩「」\"':;"
 var CODE_SYMBOL = '@'
 
 var _lastText = ""
