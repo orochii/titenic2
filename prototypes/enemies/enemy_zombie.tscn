@@ -1,7 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://ccv72pnawkjux"]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://src/enemies/EnemyWalker.gd" id="1_81ckv"]
-[ext_resource type="PackedScene" uid="uid://cmj623bmv3pvq" path="res://prototypes/fx/fx_zombieDeath.tscn" id="2_4hw8y"]
+[ext_resource type="PackedScene" uid="uid://cmj623bmv3pvq" path="res://prototypes/fx/fx_zombie_death.tscn" id="2_4hw8y"]
 [ext_resource type="Texture2D" uid="uid://2ovgjfip4fya" path="res://textures/objects.png" id="3_aohr2"]
 [ext_resource type="Script" path="res://src/AttackLibrary.gd" id="4_jem3o"]
 [ext_resource type="Script" path="res://src/Attack.gd" id="5_c0562"]

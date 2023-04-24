@@ -1,7 +1,7 @@
-[gd_scene load_steps=34 format=3 uid="uid://5a56hfif4nfy"]
+[gd_scene load_steps=34 format=3 uid="uid://c5ygdu8qunrma"]
 
+[ext_resource type="AudioStream" uid="uid://yh6b0e7lyryb" path="res://audio/bgm/main_theme_titanic.ogg" id="1_834kg"]
 [ext_resource type="Texture2D" uid="uid://c8ifan14xlveq" path="res://textures/jeff.png" id="1_bj1n8"]
-[ext_resource type="AudioStream" uid="uid://yh6b0e7lyryb" path="res://audio/bgm/Main Theme - Titanic.ogg" id="1_tc4y4"]
 [ext_resource type="Script" path="res://src/BitmapText.gd" id="2_7lvo8"]
 [ext_resource type="Texture2D" uid="uid://cm5cm0y0ojh4f" path="res://textures/title.png" id="3_ufqug"]
 [ext_resource type="Shader" path="res://ScreenPalette.gdshader" id="4_vgxhy"]
@@ -497,7 +497,7 @@ _data = {
 [node name="Node2D" type="Node2D"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("1_tc4y4")
+stream = ExtResource("1_834kg")
 autoplay = true
 
 [node name="LicenseScreen" type="Node2D" parent="."]
